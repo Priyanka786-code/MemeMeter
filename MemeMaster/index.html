@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MemeMeter ⚖️</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     INTRO / LANDING PAGE
+     ===================================================== -->
+
+<section id="intro"
+         class="intro">
+
+    <div class="floating">😂</div>
+    <div class="floating">💀</div>
+    <div class="floating">🗿</div>
+    <div class="floating">🤨</div>
+
+
+    <div class="intro-content">
+
+        <div class="badge">
+            🚨 SUSPICIOUS MEME DETECTED
+        </div>
+
+
+        <h1>
+            MEME <span>COURT</span> ⚖️
+        </h1>
+
+
+        <p class="tagline">
+
+            "Not everything you see in a meme
+            deserves your trust. 💀"
+
+        </p>
+
+
+        <!-- Judge -->
+
+        <div class="judge">
+
+            <div class="judge-face">
+                🧑‍⚖️
+            </div>
+
+
+            <div class="speech">
+
+                <p id="judgeText">
+
+                    Hmm... another meme has
+                    entered my courtroom.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Start Button -->
+
+        <button class="start-btn"
+                onclick="startCourt()">
+
+            ⚖️ PUT A MEME ON TRIAL
+
+        </button>
+
+
+        <p class="small-text">
+
+            Bring the meme.
+            We'll bring the receipts. 🧾
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN APPLICATION
+     ===================================================== -->
+
+<section id="app"
+         class="app hidden">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            🧠 MemeMeter
+        </div>
+
+
+        <div class="header-badge">
+            ⚖️ Meme Court
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- =================================================
+             TITLE
+             ================================================= -->
+
+        <div class="title-area">
+
+            <div class="mini-badge">
+                🔍 CASE #001
+            </div>
+
+
+            <h2>
+                Submit your suspect
+            </h2>
+
+
+            <p>
+                Give us the meme.
+                We'll interrogate it. 🕵️
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             INPUT / EVIDENCE CARD
+             ================================================= -->
+
+        <div class="input-card">
+
+
+            <div class="card-top">
+
+                <span>
+                    📂 EVIDENCE BOX
+                </span>
+
+                <span>
+                    CONFIDENTIAL 🤫
+                </span>
+
+            </div>
+
+
+
+            <!-- TEXT INPUT -->
+
+            <textarea
+                id="memeText"
+                placeholder="Paste the meme text here...
+
+Example:
+'Drinking coffee dehydrates your body 💀'">
+            </textarea>
+
+
+
+            <div class="or">
+                — OR —
+            </div>
+
+
+
+            <!-- =================================================
+                 IMAGE UPLOAD
+                 ================================================= -->
+
+            <input
+                type="file"
+                id="memeImage"
+                accept="image/*"
+                hidden
+                onchange="handleImageUpload(event)"
+            >
+
+
+            <button
+                class="upload-btn"
+                onclick="document.getElementById('memeImage').click()">
+
+                📤 Upload Meme
+
+            </button>
+
+
+            <!-- Upload / OCR Status -->
+
+            <p id="uploadMessage"
+               class="upload-message">
+            </p>
+
+
+
+            <!-- =================================================
+                 IMAGE PREVIEW
+                 ================================================= -->
+
+            <div id="imagePreview"
+                 class="image-preview hidden">
+
+                <img
+                    id="previewImg"
+                    src=""
+                    alt="Uploaded Meme Preview">
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ANALYZE BUTTON
+                 ================================================= -->
+
+            <button
+                class="analyze-btn"
+                onclick="analyzeMeme()">
+
+                🔨 ANALYZE THIS SUSPECT
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOADING SCREEN
+             ================================================= -->
+
+        <div id="loading"
+             class="loading hidden">
+
+
+            <div class="loading-emoji">
+                🕵️
+            </div>
+
+
+            <h3 id="loadingText">
+
+                Interrogating the meme...
+
+            </h3>
+
+
+            <div class="loading-bar">
+
+                <div id="progress">
+                </div>
+
+            </div>
+
+
+            <p>
+
+                Please remain calm.
+                The meme is getting nervous. 💀
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             RESULT SECTION
+             ================================================= -->
+
+        <div id="result"
+             class="result hidden">
+
+
+            <!-- CASE CLOSED -->
+
+            <div class="verdict-header">
+
+
+                <div class="gavel">
+                    🔨
+                </div>
+
+
+                <div>
+
+                    <p class="case-closed">
+                        CASE CLOSED
+                    </p>
+
+
+                    <h2>
+                        THE COURT HAS DECIDED
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CLAIM DETECTED
+                 ================================================= -->
+
+            <div class="claim-card">
+
+                <span>
+                    🔎 CLAIM DETECTED
+                </span>
+
+
+                <p id="claim">
+                    —
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VERDICT
+                 ================================================= -->
+
+            <div class="verdict-card">
+
+
+                <div class="judge-big">
+                    🧑‍⚖️
+                </div>
+
+
+                <div>
+
+                    <p class="verdict-label">
+                        VERDICT
+                    </p>
+
+
+                    <h2 id="verdict">
+                        —
+                    </h2>
+
+
+                    <p id="verdictMessage">
+                        —
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SCORES
+                 ================================================= -->
+
+            <div class="scores">
+
+
+                <!-- ACCURACY -->
+
+                <div class="score-card">
+
+                    <span>
+                        🎯 ACCURACY
+                    </span>
+
+
+                    <div class="score"
+                         id="accuracy">
+
+                        0%
+
+                    </div>
+
+
+                    <div class="meter">
+
+                        <div
+                            id="accuracyBar"
+                            class="meter-fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MISINFORMATION RISK -->
+
+                <div class="score-card">
+
+                    <span>
+                        ⚠️ MISINFORMATION RISK
+                    </span>
+
+
+                    <div class="score"
+                         id="risk">
+
+                        0%
+
+                    </div>
+
+
+                    <div class="meter">
+
+                        <div
+                            id="riskBar"
+                            class="meter-fill risk-fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FACT CHECK
+                 ================================================= -->
+
+            <div class="fact-card">
+
+
+                <div class="fact-title">
+
+                    🔍 FACT-CHECK REQUIRED?
+
+
+                    <span id="factCheck">
+                        YES
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EXPLANATION
+                 ================================================= -->
+
+            <div class="explanation-card">
+
+
+                <h3>
+                    🧠 WHY IS THIS SUS?
+                </h3>
+
+
+                <p id="explanation">
+                    —
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VERIFICATION
+                 ================================================= -->
+
+            <div class="verification-card">
+
+
+                <h3>
+                    🕵️ WHAT SHOULD BE VERIFIED?
+                </h3>
+
+
+                <ul id="verification">
+                </ul>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FINAL FUN MESSAGE
+                 ================================================= -->
+
+            <div id="finalMessage"
+                 class="final-message">
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NEW CASE
+                 ================================================= -->
+
+            <button
+                class="again-btn"
+                onclick="newCase()">
+
+                🔄 TRY ANOTHER MEME
+
+            </button>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =================================================
+         FOOTER
+         ================================================= -->
+
+    <footer>
+
+        <p>
+            MemeMeter © 2026
+        </p>
+
+
+        <p>
+            We don't kill the meme.
+            We fact-check it. ⚖️😂
+        </p>
+
+    </footer>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TESSERACT OCR
+     ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js">
+</script>
+
+
+
+<!-- =====================================================
+     OUR JAVASCRIPT
+     ===================================================== -->
+
+<script src="script.js">
+</script>
+
+
+</body>
+
+</html>
